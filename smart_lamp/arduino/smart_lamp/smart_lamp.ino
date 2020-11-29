@@ -28,8 +28,8 @@ Adafruit_NeoPixel matrix = Adafruit_NeoPixel(CLASTER_COUNT, LED_LAMP_PIN, NEO_GR
 
 void setup() {
 
-  Serial.begin(9600);
-  while (!Serial);
+  //Serial.begin(9600);
+  //while (!Serial);
 
   pinMode(LED_PIN, OUTPUT);
   pinMode(LED_LAMP_PIN, OUTPUT);
@@ -113,10 +113,10 @@ void onRxCharValueUpdate(BLEDevice central, BLECharacteristic characteristic) {
       r = rstr.toInt();
     String gstr = getValue(cmd_text, ' ', 2);
     if (isValidNumber(gstr))
-      g = rstr.toInt();
+      g = gstr.toInt();
     String bstr = getValue(cmd_text, ' ', 3);
     if (isValidNumber(bstr))
-      b = rstr.toInt();
+      b = bstr.toInt();
 
     lampControl(r, g, b);
   }
