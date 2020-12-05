@@ -48,14 +48,15 @@ class SmartLampController:
         self.tx_characteristic.write(bytes(msg, "utf-8"))
 
     def switch_lamp(self, state):
+        r, g, b = 0, 0, 0
         if isinstance(state, bool):
             if state:
-                self._write("rgb 255 255 255")
-            else:
-                self._write("rgb 0 0 0")
+                r, g, b = 255, 255, 255
+        elif isinstance(state, dict):
+            r, g, b = state["r"], state["g"], state["b"]
         elif len(state) == 3:
             r, g, b = state
-            self._write(f"rgb {r} {g} {b}")
+        self._write(f"rgb {r} {g} {b}")
 
     def __str__(self):
         return f"SmartLampController:{self.name}"

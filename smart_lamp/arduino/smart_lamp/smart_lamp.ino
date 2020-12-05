@@ -18,7 +18,7 @@ BLEByteCharacteristic txChar(uuidOfTxChar, BLERead | BLENotify | BLEBroadcast);
 short sampleBuffer[256];
 volatile int samplesRead;
 
-int LED_PIN = A7;
+int LED_PIN = 13;
 int PHOTORESISTOR_PIN = A6;
 int LED_LAMP_PIN = A5;
 
@@ -50,7 +50,7 @@ void setup() {
   
   BLE.advertise();
   
-  Serial.println("Peripheral advertising info: ");
+  /*Serial.println("Peripheral advertising info: ");
   Serial.print("Name: ");
   Serial.println(nameOfPeripheral);
   Serial.print("MAC: ");
@@ -62,7 +62,7 @@ void setup() {
   Serial.print("txCharacteristics UUID: ");
   Serial.println(uuidOfTxChar);
 
-  Serial.println("Bluetooth device active, waiting for connections...");
+  Serial.println("Bluetooth device active, waiting for connections...");*/
 
   matrix.begin();
 }
@@ -70,6 +70,12 @@ void setup() {
 
 void loop()
 {
+  infoLedOn();
+  delay(10);
+  infoLedOff();
+  delay(90);
+  
+  
   BLEDevice central = BLE.central();
   
   if (central)
@@ -81,7 +87,7 @@ void loop()
 void startBLE() {
   if (!BLE.begin())
   {
-    Serial.println("starting BLE failed!");
+    //Serial.println("starting BLE failed!");
     while (1);
   }
 }
@@ -94,12 +100,12 @@ void onRxCharValueUpdate(BLEDevice central, BLECharacteristic characteristic) {
   {
     rx_buffer[dataLength] = 0;
   }
-  for(int i = 0; i < dataLength; i++) {
+  /*for(int i = 0; i < dataLength; i++) {
     Serial.print((char)rx_buffer[i]);
   }
   Serial.println();
   Serial.print("Value length = ");
-  Serial.println(rxChar.valueLength());
+  Serial.println(rxChar.valueLength());*/
   
   String cmd_text(rx_buffer);
   String cmd = getValue(cmd_text, ' ', 0);
@@ -123,14 +129,14 @@ void onRxCharValueUpdate(BLEDevice central, BLECharacteristic characteristic) {
 }
 
 void onBLEConnected(BLEDevice central) {
-  Serial.print("Connected event, central: ");
-  Serial.println(central.address());
+  //Serial.print("Connected event, central: ");
+  //Serial.println(central.address());
   connectedHandler();
 }
 
 void onBLEDisconnected(BLEDevice central) {
-  Serial.print("Disconnected event, central: ");
-  Serial.println(central.address());
+  //Serial.print("Disconnected event, central: ");
+  //Serial.println(central.address());
   disconnectedHandler();
 }
 
