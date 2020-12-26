@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from smartlamp_python_api.smart_lamp_controller import SmartLampController
+from controller_api.smart_lamp_controller import SmartLampController
 
 
 class Item(BaseModel):
