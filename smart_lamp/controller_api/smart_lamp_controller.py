@@ -41,7 +41,8 @@ class SmartLampController:
         print(self, f"Characteristic is ready.")
 
     def __del__(self):
-        self.peripheral.disconnect()
+        if self.peripheral is not None:
+            self.peripheral.disconnect()
 
     def _write(self, msg):
         print(self, f"Send command: {msg}")
